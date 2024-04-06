@@ -1,13 +1,33 @@
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import Login from "./conponents/Login/Login";
 import UserList from "./conponents/Users/UserList/UserList";
+import { useEffect, useState } from "react";
 
+const token = localStorage.getItem("token");
 function App() {
+  const navigator = useNavigate()
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+      if(token) {
+        
+        setIsLogin(true);
+        navigator("/users")
+      } else {
+        navigator("/login")
+      }
+  }, [])
+
   return (
     <div className="App">
        <Routes>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/users" element={<UserList/>}/>
+          { isLogin && (
+            <>
+               <Route path="/users" element={<UserList/>}/>
+            </>
+          )}
+          
        </Routes>
     </div>
   );
