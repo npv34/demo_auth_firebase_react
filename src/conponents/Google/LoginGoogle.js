@@ -27,6 +27,7 @@ const hanldeLoginGoogle = async () => {
 
     return (
         <>
+            <p>Test git</p>
             <button onClick={hanldeLoginGoogle}>Login with google</button>
         </>
     )
